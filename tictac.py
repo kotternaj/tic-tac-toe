@@ -30,7 +30,10 @@ def win_check(board, mark):
 
 # randomly decide who goes first
 def choose_first():
-    pass
+    if random.randint(0,1) == 0:
+        return 'player1'
+    else:
+        return 'player2'
 
 # returns a boolean indicating whether a space on the board is freely available
 def space_check(board, position):
@@ -47,7 +50,10 @@ def player_choice(board):
 
 # does player want to play again? returns boolean
 def replay():
-    pass
+    answer = input("Do you want to play again? Type yes or no")
+    if answer == 'yes':
+         return True
     
+
 
 
