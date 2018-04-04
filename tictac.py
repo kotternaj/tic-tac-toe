@@ -18,6 +18,11 @@ display_board(test_board)
 
 # take in player input and assign their marker as X or O
 def player_input():
+    letter = input('Player 1 choose to be either X or O: ')
+    if letter == 'X':
+        return ['X', 'O']
+    else: 
+        return ['O', 'X']
     pass
 
 # takes board list object, a marker (X or O) and a position (1-9) and assigns to the board
@@ -34,9 +39,10 @@ def choose_first():
         return 'player1'
     else:
         return 'player2'
-
+    pass
 # returns a boolean indicating whether a space on the board is freely available
 def space_check(board, position):
+    return board[position] == ' '
     pass
 
 # checks if board is full and returns boolean. True if full, otherwise False
@@ -52,8 +58,26 @@ def player_choice(board):
 def replay():
     answer = input("Do you want to play again? Type yes or no")
     if answer == 'yes':
-         return True
-    
+        return True
+    else:
+        return False
+    pass
 
+print('Welcome to Tic Tac Toe')
+
+while True:
+    game_on = True
+    while game_on:
+        # display_board(board)
+        player1 = player1_input()
+        print ('player 1 is' +  player1)
+        #player 1 turn
+
+        #player 2 turn
+            #pass
+
+    if not replay():
+        break 
+ 
 
 
