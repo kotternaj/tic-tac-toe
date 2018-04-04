@@ -18,7 +18,7 @@ display_board(test_board)
 
 # take in player input and assign their marker as X or O
 def player_input():
-    letter = input('Player 1 choose to be either X or O: ')
+    letter = raw_input('Player 1 choose to be either X or O: ')
     if letter == 'X':
         return ['X', 'O']
     else: 
@@ -31,6 +31,15 @@ def place_marker(board, marker, position):
 
 # takes in a board and a mark (X or O) and checks to see if that mark has won
 def win_check(board, mark):
+    return ((board[7] == board[8] == board[9]) or #across top
+    (board[4] == board[5] == board[6]) or #across center
+    (board[1] == board[2] == board[3]) or #across bottom
+    (board[7] == board[4] == board[1]) or #down left side
+    (board[8] == board[5] == board[1]) or #down center
+    (board[9] == board[6] == board[3]) or #down right side
+    (board[7] == board[5] == board[3]) or #diag
+    (board[9] == board[5] == board[1])) or #other diag
+
     pass
 
 # randomly decide who goes first
@@ -69,8 +78,7 @@ while True:
     game_on = True
     while game_on:
         # display_board(board)
-        player1 = player1_input()
-        print ('player 1 is' +  player1)
+        player1, player2 = player_input()
         #player 1 turn
 
         #player 2 turn
