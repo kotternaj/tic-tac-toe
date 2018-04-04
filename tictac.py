@@ -18,17 +18,17 @@ display_board(test_board)
 
 # take in player input and assign their marker as X or O
 def player_input():
-    letter = raw_input('Player 1 choose to be either X or O: ')
+    letter = ''
+    while not (letter == 'X' or letter == 'O'):
+        letter = raw_input('Player 1 choose to be either X or O: ').upper()
     if letter == 'X':
-        return ['X', 'O']
+        return ('X', 'O')
     else: 
-        return ['O', 'X']
-    pass
+        return ('O', 'X')
 
 # takes board list object, a marker (X or O) and a position (1-9) and assigns to the board
 def place_marker(board, marker, position):
     board[position] = marker
-    pass
 
 # takes in a board and a mark (X or O) and checks to see if that mark has won
 def win_check(board, mark):
@@ -40,7 +40,6 @@ def win_check(board, mark):
     (board[9] == mark and board[6] == mark and board[3] == mark) or #down right side
     (board[7] == mark and board[5] == mark and board[3] == mark) or #diag
     (board[9] == mark and board[5] == mark and board[1] == mark)) #other diag
-    pass
 
 # randomly decide who goes first
 def choose_first():
@@ -48,25 +47,25 @@ def choose_first():
         return 'player1'
     else:
         return 'player2'
-    pass
+
 # returns a boolean indicating whether a space on the board is freely available
 def space_check(board, position):
     return board[position] == ' '
-    pass
 
 # checks if board is full and returns boolean. True if full, otherwise False
 def full_board_check(board):
-    pass
+    for i in range(1,10):
+        if space_check(board, i):
+            return False
+    return True        
 
 # asks for player's next position (1-9) and then uses space_check if it's free.
 # if it's a free position, return the position for later use
 def player_choice(board):
-    move = ''
-    while move not in '1 2 3 4 5 6 7 8 9'.split() or not space_check(board, int(move)):
-        print ('what is your move? (1-9)')
-        move = input()
-        return int(move)
-    pass
+    position = 0
+    while move not in '1 2 3 4 5 6 7 8 9'.split() or not space_check(board,position:
+        position = int(('what is your move? (1-9)'))
+        return position
 
 # does player want to play again? returns boolean
 def replay():
@@ -75,7 +74,6 @@ def replay():
         return True
     else:
         return False
-    pass
 
 print('Welcome to Tic Tac Toe')
 
@@ -93,16 +91,16 @@ while True:
             mark = player_choice(board)
             place_marker(board, player1, mark)            
             if win_check(board, player1):
-                full_board_check(board)
+                display_board(board)
                 print ('Hooray you won!')
                 game_on = False  
             else:
-                if space_check(board):
+                if full_board_check(board):
                     display_board(board)
                     print('The game is a tie!')
-                    break
+                    game_on = False
                 else: 
-                    turn = player2
+                    turn = 'player2'
         #player 2 turn
         if turn == 'player2':
             mark = player_choice(board)
@@ -115,9 +113,9 @@ while True:
                 if full_board_check(board):
                     display_board(board)
                     print('The game is a tie!')
-                    break
+                    game_on = False
                 else: 
-                    turn = player1
+                    turn = 'player1'
 
     if not replay():
         break 
