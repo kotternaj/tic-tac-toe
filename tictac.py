@@ -32,14 +32,14 @@ def place_marker(board, marker, position):
 
 # takes in a board and a mark (X or O) and checks to see if that mark has won
 def win_check(board, mark):
-    return ((board[7] == board[8] == board[9]) or #across top
-    (board[4] == board[5] == board[6]) or #across center
-    (board[1] == board[2] == board[3]) or #across bottom
-    (board[7] == board[4] == board[1]) or #down left side
-    (board[8] == board[5] == board[2]) or #down center
-    (board[9] == board[6] == board[3]) or #down right side
-    (board[7] == board[5] == board[3]) or #diag
-    (board[9] == board[5] == board[1])) #other diag
+    return ((board[7] == mark and board[8] == mark and board[9] == mark) or #across top
+    (board[4] == mark and board[5] == mark and board[6] == mark) or #across center
+    (board[1] == mark and board[2] == mark and board[3] == mark) or #across bottom
+    (board[7] == mark and board[4] == mark and board[1] == mark) or #down left side
+    (board[8] == mark and board[5] == mark and board[2] == mark) or #down center
+    (board[9] == mark and board[6] == mark and board[3] == mark) or #down right side
+    (board[7] == mark and board[5] == mark and board[3] == mark) or #diag
+    (board[9] == mark and board[5] == mark and board[1] == mark)) #other diag
     pass
 
 # randomly decide who goes first
@@ -70,7 +70,7 @@ def player_choice(board):
 
 # does player want to play again? returns boolean
 def replay():
-    answer = input("Do you want to play again? Type yes or no")
+    answer = input("Do you want to play again? Type yes or no: ")
     if answer == 'yes':
         return True
     else:
@@ -92,11 +92,33 @@ while True:
         if turn == 'player1':
             mark = player_choice(board)
             place_marker(board, player1, mark)            
-            
+            if win_check(board, player1):
+                full_board_check(board)
+                print ('Hooray you won!')
+                game_on = False  
+            else:
+                if space_check(board):
+                    display_board(board)
+                    print('The game is a tie!')
+                    break
+                else: 
+                    turn = player2
         #player 2 turn
         if turn == 'player2':
             mark = player_choice(board)
             place_marker(board, player2, mark)
+            if win_check(board, player2):
+                display_board(board)
+                print ('Hooray you won!')
+                game_on = False 
+            else:
+                if full_board_check(board):
+                    display_board(board)
+                    print('The game is a tie!')
+                    break
+                else: 
+                    turn = player1
+
     if not replay():
         break 
  
